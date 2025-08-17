@@ -3,7 +3,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.graph.message import add_messages
 from langchain_ollama import ChatOllama
 from typing import TypedDict, Annotated 
-from langchain_core.messages import BaseMessage
+from langchain_core.messages import BaseMessage, HumanMessage
 
 llm = ChatOllama(model='llama3:latest')
 
@@ -25,3 +25,15 @@ graph.add_edge("chat_node", END)
 
 
 chatbot = graph.compile(checkpointer=checkpointer)
+
+CONFIG = {'configurable':{'thread_id':'thread-01'}}
+
+
+response = chatbot.invoke(
+                {'messages':[HumanMessage(content='Hi how are you')]},
+                config = CONFIG                
+            )
+
+
+
+

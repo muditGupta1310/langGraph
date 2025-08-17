@@ -1,6 +1,6 @@
 import streamlit as st
 from chatbot_backend import chatbot
-from langchain_core.messages import BaseMessage,HumanMessage
+from langchain_core.messages import HumanMessage
 
 
 CONFIG = {'configurable':{'thread_id':'thread-1'}}
@@ -26,7 +26,7 @@ if user_input:
 
     with st.chat_message('assistant'):
         ai_message = st.write_stream(
-            message_chunk.content for message_chunk,meta_deta in chatbot.stream(
+            message_chunk.content for message_chunk, metadata in chatbot.stream(
                 {'messages':[HumanMessage(content=user_input)]},
                 config = CONFIG,
                 stream_mode='messages'
